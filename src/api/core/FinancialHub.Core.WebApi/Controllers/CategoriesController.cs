@@ -18,11 +18,11 @@ namespace FinancialHub.Core.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get all categories of the system
+        /// Get all categories
         /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ListResponse<CategoryDto>), 200)]
-        public async Task<IActionResult> GetCategories()
+        public async Task<IActionResult> GetAll()
         {
             this.logger.LogInformation("Getting all categories");
             var result = await service.GetAllAsync();
@@ -36,9 +36,11 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// </summary>
         /// <param name="category">Category to be created</param>
         [HttpPost]
-        [ProducesResponseType(typeof(SaveResponse<CategoryDto>), 200)]
+        [ProducesResponseType(201)]
         [ProducesResponseType(typeof(ValidationsErrorResponse), 400)]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto category)
+        public async Task<IActionResult> Create(
+            [FromBody] CreateCategoryDto category
+        )
         {
             this.logger.LogInformation("Starting creation of a Category");
             var result = await service.CreateAsync(category);
@@ -53,7 +55,7 @@ namespace FinancialHub.Core.WebApi.Controllers
             }
 
             this.logger.LogInformation("Finished creation of a Category");
-            return SaveResponse(result.Data);
+            return Created($"categories/{result.Data.Id}", result.Data);
         }
 
         /// <summary>
@@ -62,9 +64,12 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// <param name="id">id of the category</param>
         /// <param name="category">category changes</param>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(SaveResponse<CategoryDto>), 200)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ValidationsErrorResponse), 400)]
-        public async Task<IActionResult> UpdateCategory([FromRoute] Guid id, [FromBody] UpdateCategoryDto category)
+        public async Task<IActionResult> Update(
+            [FromRoute] Guid id, 
+            [FromBody] UpdateCategoryDto category
+        )
         {
             this.logger.LogInformation("Starting update of a category");
             var result = await service.UpdateAsync(id, category);
@@ -79,7 +84,7 @@ namespace FinancialHub.Core.WebApi.Controllers
             }
 
             this.logger.LogInformation("Finished update of a category");
-            return SaveResponse(result.Data);
+            return Ok();
         }
 
         /// <summary>
@@ -87,12 +92,14 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// </summary>
         /// <param name="id">id of the category</param>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             this.logger.LogInformation("Removing category");
-            await service.DeleteAsync(id);
-            this.logger.LogInformation("Category removed");
 
+            await service.DeleteAsync(id);
+
+            this.logger.LogInformation("Category removed");
             return NoContent();
         }
     }
