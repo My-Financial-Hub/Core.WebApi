@@ -28,7 +28,7 @@ namespace FinancialHub.Core.WebApi.Controllers
         [HttpGet("{accountId}/balances")]
         [ProducesResponseType(typeof(ListResponse<BalanceDto>), 200)]
         [ProducesResponseType(typeof(NotFoundErrorResponse), 404)]
-        public async Task<IActionResult> GetAccountBalances([FromRoute] Guid accountId)
+        public async Task<IActionResult> GetByAccount([FromRoute] Guid accountId)
         {
             this.logger.LogInformation("Getting balances by account");
             var result = await this.balanceService.GetAllByAccountAsync(accountId);
@@ -36,7 +36,7 @@ namespace FinancialHub.Core.WebApi.Controllers
             if (result.HasError)
             {
                 this.logger.LogWarning(
-                    "Error getting balances from account {accountId} : {Message}",
+                    "Error getting balances from account {AccountId} : {Message}",
                     accountId, result.Error.Message
                 );
                 return ErrorResponse(result.Error);
@@ -51,7 +51,7 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ListResponse<AccountDto>), 200)]
-        public async Task<IActionResult> GetMyAccounts()
+        public async Task<IActionResult> GetAll()
         {
             this.logger.LogInformation("Getting all accounts");
             var result = await service.GetAllAsync();
@@ -65,9 +65,9 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// </summary>
         /// <param name="account">Account to be created</param>
         [HttpPost]
-        [ProducesResponseType(typeof(SaveResponse<AccountDto>), 200)]
+        [ProducesResponseType(201)]
         [ProducesResponseType(typeof(ValidationsErrorResponse), 400)]
-        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountDto account)
+        public async Task<IActionResult> Create([FromBody] CreateAccountDto account)
         {
             this.logger.LogInformation("Starting creation of account");
             var result = await this.service.CreateAsync(account);
@@ -82,7 +82,7 @@ namespace FinancialHub.Core.WebApi.Controllers
             }
 
             this.logger.LogInformation("Finished creation of account");
-            return SaveResponse(result.Data);
+            return Created($"accounts/{result.Data.Id}", result.Data);
         }
 
         /// <summary>
@@ -91,10 +91,10 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// <param name="id">id of the account</param>
         /// <param name="account">account changes</param>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(SaveResponse<AccountDto>), 200)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(typeof(NotFoundErrorResponse), 404)]
         [ProducesResponseType(typeof(ValidationsErrorResponse), 400)]
-        public async Task<IActionResult> UpdateAccount([FromRoute] Guid id, [FromBody] UpdateAccountDto account)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAccountDto account)
         {
             this.logger.LogInformation("Starting update of account");
             var result = await service.UpdateAsync(id, account);
@@ -102,14 +102,14 @@ namespace FinancialHub.Core.WebApi.Controllers
             if (result.HasError)
             {
                 this.logger.LogWarning(
-                    "Error updating account {id} : {Message}",
+                    "Error updating account {AccountId} : {Message}",
                     id, result.Error.Message
                 );
                 return ErrorResponse(result.Error);
             }
 
             this.logger.LogInformation("Finished update of account");
-            return SaveResponse(result.Data);
+            return Ok();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// <param name="id">id of the account</param>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteAccount([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             this.logger.LogInformation("Removing account");
             await service.DeleteAsync(id);

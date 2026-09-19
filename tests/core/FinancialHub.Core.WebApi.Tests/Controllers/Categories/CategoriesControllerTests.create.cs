@@ -21,9 +21,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
 
             var response = await this.controller.Create(body);
 
-            var result = response as ObjectResult;
-
-            Assert.AreEqual(201, result?.StatusCode);
+            Assert.IsInstanceOf<CreatedResult>(response);
 
             this.mockService.Verify(x => x.CreateAsync(body), Times.Once);
         }
