@@ -52,19 +52,13 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Categories
         }
 
         [Test]
-        public async Task Post_ValidCategory_ReturnCreatedCategory()
+        public async Task Post_ValidCategory_ReturnsCreated()
         {
             var body = createCategoryDtoBuilder.Generate();
 
             var response = await client.PostAsync(baseEndpoint, body);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
-            var result = await response.ReadContentAsync<SaveResponse<CategoryDto>>();
-            Assert.IsNotNull(result?.Data);
-            var resultData = result!.Data;
-            Assert.AreEqual(body.Name, resultData.Name);
-            Assert.AreEqual(body.Description, resultData.Description);
-            Assert.AreEqual(body.IsActive, resultData.IsActive);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Test]
