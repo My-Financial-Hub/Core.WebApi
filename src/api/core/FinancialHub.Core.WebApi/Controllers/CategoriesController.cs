@@ -77,7 +77,7 @@ namespace FinancialHub.Core.WebApi.Controllers
             if (result.HasError)
             {
                 this.logger.LogWarning(
-                    "Error updating category {id} : {Message}",
+                    "Error updating category {CategoryId} : {Message}",
                     id, result.Error.Message
                 );
                 return ErrorResponse(result.Error);

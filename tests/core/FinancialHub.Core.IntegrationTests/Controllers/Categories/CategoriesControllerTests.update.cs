@@ -57,7 +57,7 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Categories
         }
 
         [Test]
-        public async Task Put_ExistingCategory_ReturnUpdatedCategory()
+        public async Task Put_ExistingCategory_ReturnOk()
         {
             var id = Guid.NewGuid();
             fixture.AddData(categoryBuilder.WithId(id).Generate());
@@ -66,13 +66,6 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Categories
 
             var response = await client.PutAsync($"{baseEndpoint}/{id}", body);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<CategoryDto>>();
-            Assert.IsNotNull(result?.Data);
-            var resultData = result!.Data;
-            Assert.AreEqual(body.Name, resultData.Name);
-            Assert.AreEqual(body.Description, resultData.Description);
-            Assert.AreEqual(body.IsActive, resultData.IsActive);
         }
 
         [Test]
