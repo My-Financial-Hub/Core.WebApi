@@ -107,17 +107,15 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
                 .Generate();
             fixture.AddData(entity);
 
-            var body = updateBalanceDtoBuilder
+            var newBalance = updateBalanceDtoBuilder
                 .WithAccountId(account.Id)
                 .Generate();
 
-            var response = await client.PutAsync($"{baseEndpoint}/{id}", body);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            await client.PutAsync($"{baseEndpoint}/{id}", newBalance);
 
-            var result = await response.ReadContentAsync<SaveResponse<BalanceDto>>();
-            var resultData = result?.Data;
-            Assert.IsNotNull(resultData);
-            Assert.AreEqual(entity.Amount, resultData?.Amount);
+            var result = this.GetBalance(newBalance);
+            Assert.AreEqual(id, result?.Id);
+            Assert.AreEqual(entity.Amount, result?.Amount);
         }
 
         [Test]
