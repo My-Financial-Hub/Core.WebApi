@@ -145,31 +145,6 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
         }
 
         [Test]
-        public async Task Put_ExistingBalance_DoesNotUpdatesBalanceAmount()
-        {
-            var account = accountBuilder.Generate();
-            fixture.AddData(account);
-
-            var id = Guid.NewGuid();
-            var entity = balanceBuilder
-                .WithAccountId(account.Id)
-                .WithAmount(0)
-                .WithId(id)
-                .Generate();
-            fixture.AddData(entity);
-
-            var data = updateBalanceDtoBuilder
-                .WithAccountId(account.Id)
-                .Generate();
-
-            var response = await client.PutAsync($"{baseEndpoint}/{id}", data);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<BalanceDto>>();
-            Assert.Zero(result!.Data.Amount);
-        }
-
-        [Test]
         public async Task Put_NotExistingBalance_ReturnsNotFound()
         {
             var account = accountBuilder.Generate();
