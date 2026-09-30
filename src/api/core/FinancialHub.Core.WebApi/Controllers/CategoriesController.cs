@@ -6,7 +6,7 @@ namespace FinancialHub.Core.WebApi.Controllers
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class CategoriesController : BaseController
+    public sealed class CategoriesController : BaseController
     {
         private readonly ICategoriesService service;
         private readonly ILogger<CategoriesController> logger;
