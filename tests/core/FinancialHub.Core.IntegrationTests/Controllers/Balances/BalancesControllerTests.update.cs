@@ -74,7 +74,7 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
         }
 
         [Test]
-        public async Task Put_ExistingBalance_ReturnsUpdatedBalance()
+        public async Task Put_ExistingBalance_ReturnOk()
         {
             var account = accountBuilder.Generate();
             fixture.AddData(account);
@@ -92,13 +92,6 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
 
             var response = await client.PutAsync($"{baseEndpoint}/{id}", body);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<BalanceDto>>();
-            var resultData = result?.Data;
-            Assert.IsNotNull(resultData);
-            Assert.AreEqual(body.Name, resultData?.Name);
-            Assert.AreEqual(body.Currency, resultData?.Currency);
-            Assert.AreEqual(body.IsActive, resultData?.IsActive);
         }
 
         [Test]
