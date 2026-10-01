@@ -8,7 +8,7 @@ namespace FinancialHub.Core.WebApi.Controllers
     [Route("[controller]")]
     [Produces("application/json")]
     [ProducesErrorResponseType(typeof(Exception))]
-    public class AccountsController : BaseController
+    public sealed class AccountsController : BaseController
     {
         private readonly IAccountsService service;
         private readonly IBalancesService balanceService;
