@@ -5,8 +5,8 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
     public partial class TransactionsControllerTests
     {
         [Test]
-        [TestCase(Description = "Create valid transaction Return Ok", Category = "Create")]
-        public async Task Create_Valid_ReturnsOk()
+        [TestCase(Description = "Create valid transaction Return Created", Category = "Create")]
+        public async Task Create_Valid_ReturnsCreated()
         {
             var body = this.createTransactionDtoBuilder.Generate();
             var serviceResult = this
@@ -22,7 +22,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
 
             var response = await this.controller.Create(body);
 
-            Assert.IsInstanceOf<OkObjectResult>(response);
+            Assert.IsInstanceOf<CreatedResult>(response);
         }
 
         [Test]

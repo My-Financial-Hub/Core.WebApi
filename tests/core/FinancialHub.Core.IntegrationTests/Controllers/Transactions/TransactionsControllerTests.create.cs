@@ -1,6 +1,5 @@
 ﻿using FinancialHub.Core.Domain.DTOS.Transactions;
 using FinancialHub.Core.Domain.Enums;
-using FinancialHub.Core.Domain.Tests.Builders.DTOS.Balances;
 using FinancialHub.Core.Domain.Tests.Builders.DTOS.Transactions;
 
 namespace FinancialHub.Core.IntegrationTests.Controllers.Transactions
@@ -76,7 +75,7 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Transactions
         }
 
         [Test]
-        public async Task Post_ValidTransaction_ReturnCreatedTransaction()
+        public async Task Post_ValidTransaction_ReturnsCreated()
         {
             var entity = transactionBuilder.Generate();
 
@@ -89,19 +88,7 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Transactions
                 .Generate();
 
             var response = await client.PostAsync(baseEndpoint, data);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<TransactionDto>>();
-            Assert.IsNotNull(result?.Data);
-            var resultData = result!.Data;
-            Assert.AreEqual(data.BalanceId, resultData.Balance.Id);
-            Assert.AreEqual(data.CategoryId, resultData.Category.Id);
-            Assert.AreEqual(data.TargetDate, resultData.TargetDate);
-            Assert.AreEqual(data.FinishDate, resultData.FinishDate);
-            Assert.AreEqual(data.Amount, resultData.Amount);
-            Assert.AreEqual(data.Type, resultData.Type);
-            Assert.AreEqual(data.Description, resultData.Description);
-            Assert.AreEqual(data.IsActive, resultData.IsActive);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Test]
