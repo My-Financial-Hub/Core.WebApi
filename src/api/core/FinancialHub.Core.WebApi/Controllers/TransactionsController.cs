@@ -1,7 +1,6 @@
 ﻿using FinancialHub.Core.Domain.DTOS.Transactions;
 using FinancialHub.Core.Domain.Filters;
 using Microsoft.Extensions.Logging;
-using System.Security.Principal;
 
 namespace FinancialHub.Core.WebApi.Controllers
 {
@@ -24,7 +23,7 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(ListResponse<TransactionDto>), 200)]
-        public async Task<IActionResult> GetTransactions([FromQuery] TransactionFilter filter)
+        public async Task<IActionResult> Get([FromQuery] TransactionFilter filter)
         {
             this.logger.LogInformation("Getting transactions");
             var result = await service.GetAllAsync(filter);
@@ -38,9 +37,9 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// </summary>
         /// <param name="category">Transaction to be created</param>
         [HttpPost]
-        [ProducesResponseType(typeof(SaveResponse<TransactionDto>), 200)]
+        [ProducesResponseType(typeof(TransactionDto), 201)]
         [ProducesResponseType(typeof(ValidationsErrorResponse), 400)]
-        public async Task<IActionResult> CreateTransaction([FromBody] CreateTransactionDto transaction)
+        public async Task<IActionResult> Create([FromBody] CreateTransactionDto transaction)
         {
             this.logger.LogInformation("Starting creation of transaction");
             var result = await this.service.CreateAsync(transaction);
@@ -55,7 +54,7 @@ namespace FinancialHub.Core.WebApi.Controllers
             }
 
             this.logger.LogInformation("Finished creation of transaction");
-            return SaveResponse(result.Data);
+            return Created($"transactions/{result.Data.Id}", result.Data);
         }
 
         /// <summary>
@@ -65,18 +64,17 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// <param name="transaction">transaction changes</param>
         [Obsolete("Disabled endpoint")]
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(SaveResponse<TransactionDto>), 200)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ValidationsErrorResponse), 400)]
-        public async Task<IActionResult> UpdateTransaction([FromRoute] Guid id, [FromBody] UpdateTransactionDto transaction)
+        [ProducesResponseType(typeof(NotFoundErrorResponse), 404)]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTransactionDto transaction)
         {
             var result = await this.service.UpdateAsync(id, transaction);
 
             if (result.HasError)
-            {
                 return ErrorResponse(result.Error);
-            }
 
-            return SaveResponse(result.Data);
+            return Ok();
         }
 
         /// <summary>
@@ -85,7 +83,7 @@ namespace FinancialHub.Core.WebApi.Controllers
         /// <param name="id">id of the transaction</param>
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
-        public async Task<IActionResult> DeleteTransaction([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             this.logger.LogInformation("Removing transaction");
             await service.DeleteAsync(id);
