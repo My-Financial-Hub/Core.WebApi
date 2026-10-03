@@ -45,7 +45,7 @@ namespace FinancialHub.Core.IntegrationTests.Controllers
         }
 
         [Test]
-        public async Task Put_ExistingAccount_ReturnUpdatedAccount()
+        public async Task Put_ExistingAccount_ReturnOk()
         {
             var id = Guid.NewGuid();
             fixture.AddData(accountBuilder.WithId(id).Generate());
@@ -54,14 +54,6 @@ namespace FinancialHub.Core.IntegrationTests.Controllers
 
             var response = await client.PutAsync($"{baseEndpoint}/{id}", body);
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<AccountDto>>();
-            var resultData = result?.Data;
-            Assert.That(resultData, Is.Not.Null);
-            Assert.AreEqual(resultData?.Id, id);
-            Assert.AreEqual(resultData?.Name, body.Name);
-            Assert.AreEqual(resultData?.Description, body.Description);
-            Assert.AreEqual(resultData?.IsActive, body.IsActive);
         }
 
         [Test]

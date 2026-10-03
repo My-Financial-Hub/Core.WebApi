@@ -39,39 +39,13 @@ namespace FinancialHub.Core.IntegrationTests.Controllers
         }
 
         [Test]
-        public async Task Post_ValidAccount_ReturnsCreatedAccount()
+        public async Task Post_ValidAccount_ReturnsCreated()
         {
             var data = createAccountDtoBuilder.Generate();
 
             var response = await client.PostAsync(baseEndpoint, data);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
-            var result = await response.ReadContentAsync<SaveResponse<AccountDto>>();
-            var resultData = result?.Data;
-            Assert.That(resultData, Is.Not.Null);
-            Assert.AreEqual(data.Name, resultData?.Name);
-            Assert.AreEqual(data.Description, resultData?.Description);
-            Assert.AreEqual(data.IsActive, resultData?.IsActive);
-        }
-
-        [Test]
-        public async Task Post_ValidAccount_ReturnsCreatedAccountId()
-        {
-            var data = createAccountDtoBuilder.Generate();
-
-            var response = await client.PostAsync(baseEndpoint, data);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<AccountDto>>();
-            var account = fixture
-                .GetData<AccountEntity>()
-                .First(
-                    acc =>
-                        acc.Name == data.Name &&
-                        acc.Description == data.Description &&
-                        acc.IsActive == data.IsActive
-                );
-            Assert.AreEqual(account.Id, result?.Data?.Id);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Test]

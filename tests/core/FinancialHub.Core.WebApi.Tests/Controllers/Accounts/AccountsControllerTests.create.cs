@@ -6,7 +6,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
     {
         [Test]
         [TestCase(Description = "Create account returns ok", Category = "Create")]
-        public async Task CreateAccount_ServiceSuccess_ReturnsOk()
+        public async Task Create_ServiceSuccess_ReturnsOk()
         {
             var body = this.createAccountDtoBuilder.Generate();
             var dtoResult = this.accountDtoBuilder
@@ -19,22 +19,16 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.CreateAccount(body);
+            var response = await this.controller.Create(body);
 
-            var result = response as ObjectResult;
-
-            Assert.AreEqual(200, result?.StatusCode);
-            Assert.IsInstanceOf<SaveResponse<AccountDto>>(result?.Value);
-
-            var listResponse = result?.Value as SaveResponse<AccountDto>;
-            Assert.AreEqual(mockResult.Data, listResponse?.Data);
+            Assert.IsInstanceOf<CreatedResult>(response);
 
             this.mockService.Verify(x => x.CreateAsync(body), Times.Once);
         }
 
         [Test]
         [TestCase(Description = "Create account returns Bad Request", Category = "Create")]
-        public async Task CreateAccount_ServiceError_ReturnsBadRequest()
+        public async Task Create_ServiceError_ReturnsBadRequest()
         {
             var errorMessage = $"Invalid thing : {Guid.NewGuid()}";
             var body = this.createAccountDtoBuilder.Generate();
@@ -49,7 +43,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.CreateAccount(body);
+            var response = await this.controller.Create(body);
 
             var result = response as ObjectResult;
 

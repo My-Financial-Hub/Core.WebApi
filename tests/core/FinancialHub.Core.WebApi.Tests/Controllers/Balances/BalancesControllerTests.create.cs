@@ -18,15 +18,9 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.CreateBalance(body);
+            var response = await this.controller.Create(body);
 
-            var result = response as ObjectResult;
-
-            Assert.AreEqual(200, result?.StatusCode);
-            Assert.IsInstanceOf<SaveResponse<BalanceDto>>(result?.Value);
-
-            var listResponse = result?.Value as SaveResponse<BalanceDto>;
-            Assert.AreEqual(mockResult.Data, listResponse?.Data);
+            Assert.IsInstanceOf<CreatedResult>(response);
 
             this.mockService.Verify(x => x.CreateAsync(body), Times.Once);
         }
@@ -47,7 +41,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.CreateBalance(body);
+            var response = await this.controller.Create(body);
 
             var result = response as ObjectResult;
 

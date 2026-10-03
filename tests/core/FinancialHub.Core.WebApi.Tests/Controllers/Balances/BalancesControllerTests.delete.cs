@@ -5,11 +5,8 @@
         [Test]
         public async Task DeleteMyBalances_ServiceSuccess_ReturnsNoContent()
         {
-            var response = await this.controller.DeleteBalance(Guid.NewGuid());
-
-            var result = response as ObjectResult;
-
-            Assert.IsNull(result?.Value);
+            var response = await this.controller.Delete(Guid.NewGuid());
+            Assert.IsInstanceOf<NoContentResult>(response);
         }
     }
 }
