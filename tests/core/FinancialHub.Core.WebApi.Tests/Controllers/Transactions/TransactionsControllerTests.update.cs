@@ -24,7 +24,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
 
             var response = await this.controller.Update(guid, body);
 
-            Assert.IsInstanceOf<OkObjectResult>(response);
+            Assert.IsInstanceOf<OkResult>(response);
         }
 
         [Test]
