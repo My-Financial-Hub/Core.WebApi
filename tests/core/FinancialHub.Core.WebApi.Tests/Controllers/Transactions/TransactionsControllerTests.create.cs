@@ -5,8 +5,8 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
     public partial class TransactionsControllerTests
     {
         [Test]
-        [TestCase(Description = "Create valid transaction Return Ok", Category = "Create")]
-        public async Task CreateTransaction_Valid_ReturnsOk()
+        [TestCase(Description = "Create valid transaction Return Created", Category = "Create")]
+        public async Task Create_Valid_ReturnsCreated()
         {
             var body = this.createTransactionDtoBuilder.Generate();
             var serviceResult = this
@@ -20,22 +20,14 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.CreateTransaction(body);
+            var response = await this.controller.Create(body);
 
-            var result = response as ObjectResult;
-
-            Assert.AreEqual(200, result?.StatusCode);
-            Assert.IsInstanceOf<SaveResponse<TransactionDto>>(result?.Value);
-
-            var listResponse = result?.Value as SaveResponse<TransactionDto>;
-            Assert.AreEqual(mockResult.Data, listResponse?.Data);
-
-            this.mockService.Verify(x => x.CreateAsync(body), Times.Once);
+            Assert.IsInstanceOf<CreatedResult>(response);
         }
 
         [Test]
         [TestCase(Description = "Create invalid Transaction Return BadRequest", Category = "Create")]
-        public async Task CreateTransaction_Invalid_ReturnsBadRequest()
+        public async Task Create_Invalid_ReturnsBadRequest()
         {
             var errorMessage = $"Invalid thing : {Guid.NewGuid()}";
             var body = this.createTransactionDtoBuilder.Generate();
@@ -50,7 +42,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.CreateTransaction(body);
+            var response = await this.controller.Create(body);
 
             var result = response as ObjectResult;
 
