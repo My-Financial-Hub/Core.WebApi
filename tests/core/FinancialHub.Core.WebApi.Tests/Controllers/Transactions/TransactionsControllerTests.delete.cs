@@ -4,9 +4,9 @@
     {
         [Test]
         [TestCase(Description = "Delete Transaction Returns NoContent", Category = "Delete")]
-        public async Task DeleteMyTransactions_ServiceSuccess_ReturnsNoContent()
+        public async Task Delete_ServiceSuccess_ReturnsNoContent()
         {
-            var response = await this.controller.DeleteTransaction(Guid.NewGuid());
+            var response = await this.controller.Delete(Guid.NewGuid());
 
             var result = response as ObjectResult;
 
