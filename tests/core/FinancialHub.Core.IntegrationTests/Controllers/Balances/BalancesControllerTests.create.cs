@@ -1,4 +1,5 @@
 ﻿using FinancialHub.Core.Domain.DTOS.Balances;
+using FinancialHub.Core.Domain.Tests.Builders.DTOS.Accounts;
 using FinancialHub.Core.Domain.Tests.Builders.DTOS.Balances;
 
 namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
@@ -86,35 +87,15 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
         }
 
         [Test]
-        public async Task Post_ValidBalance_ReturnsCreatedBalance()
+        public async Task Post_ValidAccount_ReturnsCreated()
         {
             var account = accountBuilder.Generate();
             fixture.AddData(account);
             var body = createBalanceDtoBuilder.WithAccountId(account.Id).Generate();
 
             var response = await client.PostAsync(baseEndpoint, body);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
-            var result = await response.ReadContentAsync<SaveResponse<BalanceDto>>();
-            var resultData = result?.Data;
-            Assert.IsNotNull(resultData);
-            Assert.AreEqual(body.Name, resultData?.Name);
-            Assert.AreEqual(body.Currency, resultData?.Currency);
-        }
-
-        [Test]
-        public async Task Post_ValidBalance_ReturnCreatedBalanceId()
-        {
-            var account = accountBuilder.Generate();
-            fixture.AddData(account);
-            var body = createBalanceDtoBuilder.WithAccountId(account.Id).Generate();
-
-            var response = await client.PostAsync(baseEndpoint, body);
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var result = await response.ReadContentAsync<SaveResponse<BalanceDto>>();
-            var balance = this.GetBalance(body);
-            Assert.AreEqual(balance.Id, result?.Data?.Id);
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Test]
@@ -128,18 +109,6 @@ namespace FinancialHub.Core.IntegrationTests.Controllers.Balances
 
             var balance = this.GetBalance(body);
             Assert.NotNull(balance);
-        }
-        
-        [Test]
-        public async Task Post_ValidBalance_CreatesBalanceWithAmountZero()
-        {
-            var account = accountBuilder.Generate();
-            fixture.AddData(account);
-            var body = createBalanceDtoBuilder.WithAccountId(account.Id).Generate();
-
-            var response = await client.PostAsync(baseEndpoint, body);
-            var result = await response.ReadContentAsync<SaveResponse<BalanceDto>>();
-            Assert.Zero(result!.Data.Amount);
         }
     }
 }

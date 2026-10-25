@@ -7,7 +7,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
     {
         [Test]
         [TestCase(Description = "Get Transactions return Ok", Category = "Create")]
-        public async Task GetMyTransactions_ServiceSuccess_ReturnsOk()
+        public async Task Get_ServiceSuccess_ReturnsOk()
         {
             var mockResult = new ServiceResult<ICollection<TransactionDto>>(transactionDtoBuilder.Generate(random.Next(0, 10)));
 
@@ -18,7 +18,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.GetTransactions(filter);
+            var response = await this.controller.Get(filter);
             var result = (ObjectResult)response;
 
             Assert.AreEqual(200, result.StatusCode);

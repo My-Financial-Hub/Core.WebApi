@@ -6,7 +6,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
     {
         [Test]
         [TestCase(Description = "Update valid Category returns Ok", Category = "Update")]
-        public async Task UpdateCategory_Valid_ReturnsOk()
+        public async Task Update_Valid_ReturnsOk()
         {
             var body = this.updateCategoryDtoBuilder.Generate();
             var resultMock = this.categoryDtoBuilder
@@ -20,22 +20,16 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.UpdateCategory(guid, body);
+            var response = await this.controller.Update(guid, body);
 
-            var result = response as ObjectResult;
-
-            Assert.AreEqual(200, result?.StatusCode);
-            Assert.IsInstanceOf<SaveResponse<CategoryDto>>(result?.Value);
-
-            var listResponse = result?.Value as SaveResponse<CategoryDto>;
-            Assert.AreEqual(mockResult.Data, listResponse?.Data);
+            Assert.IsInstanceOf<OkResult>(response);
 
             this.mockService.Verify(x => x.UpdateAsync(guid, body), Times.Once);
         }
 
         [Test]
         [TestCase(Description = "Update invalid Category returns BadRequest", Category = "Update")]
-        public async Task UpdateCategory_Invalid_ReturnsBadRequest()
+        public async Task Update_Invalid_ReturnsBadRequest()
         {
             var errorMessage = $"Invalid thing : {Guid.NewGuid()}";
             var body = this.updateCategoryDtoBuilder.Generate();
@@ -51,7 +45,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.UpdateCategory(guid,body);
+            var response = await this.controller.Update(guid,body);
 
             var result = response as ObjectResult;
 

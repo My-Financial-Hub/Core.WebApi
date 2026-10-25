@@ -1,4 +1,5 @@
 ﻿using FinancialHub.Core.Domain.DTOS.Balances;
+using System.Net;
 
 namespace FinancialHub.Core.WebApi.Tests.Controllers
 {
@@ -19,15 +20,9 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.UpdateBalance(guid, body);
+            var response = await this.controller.Update(guid, body);
 
-            var result = response as ObjectResult;
-
-            Assert.AreEqual(200, result?.StatusCode);
-            Assert.IsInstanceOf<SaveResponse<BalanceDto>>(result?.Value);
-
-            var listResponse = result?.Value as SaveResponse<BalanceDto>;
-            Assert.AreEqual(mockResult.Data, listResponse?.Data);
+            Assert.IsInstanceOf<OkResult>(response);
 
             this.mockService.Verify(x => x.UpdateAsync(guid, body), Times.Once);
         }
@@ -48,7 +43,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.UpdateBalance(guid,body);
+            var response = await this.controller.Update(guid,body);
 
             var result = response as ObjectResult;
 

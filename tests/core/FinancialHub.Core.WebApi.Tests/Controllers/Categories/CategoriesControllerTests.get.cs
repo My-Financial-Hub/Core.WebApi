@@ -17,7 +17,7 @@ namespace FinancialHub.Core.WebApi.Tests.Controllers
                 .ReturnsAsync(mockResult)
                 .Verifiable();
 
-            var response = await this.controller.GetCategories();
+            var response = await this.controller.GetAll();
             var result = (ObjectResult)response;
 
             Assert.AreEqual(200, result.StatusCode);
