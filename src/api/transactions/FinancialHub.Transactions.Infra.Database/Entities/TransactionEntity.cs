@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyFinancialHub.Transactions.Infra.Database.Entities
+namespace FinancialHub.Transactions.Infra.Database.Entities
 {
     public class TransactionEntity
     {

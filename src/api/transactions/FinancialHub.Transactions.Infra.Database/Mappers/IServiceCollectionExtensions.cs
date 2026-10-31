@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace MyFinancialHub.Transactions.Infra.Database.Mappers
+namespace FinancialHub.Transactions.Infra.Database.Mappers
 {
     internal static class IServiceCollectionExtensions
     {

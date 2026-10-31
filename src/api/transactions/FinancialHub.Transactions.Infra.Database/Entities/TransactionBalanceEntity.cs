@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyFinancialHub.Transactions.Infra.Database.Entities
+namespace FinancialHub.Transactions.Infra.Database.Entities
 {
     public class TransactionBalanceEntity
     {

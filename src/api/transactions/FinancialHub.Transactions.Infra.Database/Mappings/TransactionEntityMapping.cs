@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyFinancialHub.Transactions.Infra.Data.Common.Entities;
+using FinancialHub.Transactions.Infra.Data.Common.Entities;
 
-namespace MyFinancialHub.Transactions.Infra.Database.Mappings
+namespace FinancialHub.Transactions.Infra.Database.Mappings
 {
     internal sealed class TransactionEntityMapping : IEntityTypeConfiguration<TransactionEntity>
     {

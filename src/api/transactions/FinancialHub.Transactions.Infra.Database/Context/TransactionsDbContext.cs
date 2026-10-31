@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MyFinancialHub.Transactions.Infra.Database.Entities;
-using MyFinancialHub.Transactions.Infra.Database.Mappings;
+using FinancialHub.Transactions.Infra.Database.Entities;
+using FinancialHub.Transactions.Infra.Database.Mappings;
 
-namespace MyFinancialHub.Transactions.Infra.Database.Context
+namespace FinancialHub.Transactions.Infra.Database.Context
 {
     internal sealed class TransactionsDbContext : DbContext
     {

@@ -1,6 +1,9 @@
-﻿using MyFinancialHub.Transactions.Infra.Database.Entities;
+﻿using FinancialHub.Transactions.Domain;
+using FinancialHub.Transactions.Domain.Data.Restore;
+using FinancialHub.Transactions.Infra.Database.Entities;
+using System;
 
-namespace MyFinancialHub.Transactions.Infra.Database.Mappers
+namespace FinancialHub.Transactions.Infra.Database.Mappers
 {
     internal sealed class TransactionMapper
     {
@@ -18,6 +21,11 @@ namespace MyFinancialHub.Transactions.Infra.Database.Mappers
 
         internal Transaction FromEntity(TransactionEntity entity)
         {
+            ArgumentNullException.ThrowIfNull(entity);
+
+            var balance = balanceMapper.FromEntity(entity.Balance);
+            var category = categoryMapper.FromEntity(entity.Category);
+
             return Transaction.Restore(
                 new TransactionRestoreData()
                 {
@@ -32,8 +40,8 @@ namespace MyFinancialHub.Transactions.Infra.Database.Mappers
                     },
                     Relations = new TransactionRestoreRelations()
                     {
-                        Balance = balanceMapper.FromEntity(entity.Balance),
-                        Category = categoryMapper.FromEntity(entity.Category)
+                        Balance = balance,
+                        Category = category
                     },
                     Details = new TransactionRestoreDetails()
                     {
@@ -46,10 +54,12 @@ namespace MyFinancialHub.Transactions.Infra.Database.Mappers
             );
         }
 
-        public TransactionEntity ToEntity(Transaction model)
+        public TransactionEntity? ToEntity(Transaction model)
         {
             var balance = balanceMapper.ToEntity(model.Balance);
             var category = categoryMapper.ToEntity(model.Category);
+            if (balance is null || category is null)
+                return null;
 
             return new TransactionEntity(
                 id: model.Id, 
