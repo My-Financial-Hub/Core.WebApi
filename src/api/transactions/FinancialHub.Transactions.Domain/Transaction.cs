@@ -164,7 +164,7 @@ namespace FinancialHub.Transactions.Domain
 
         public void Update(
             TransactionBalance? balance, TransactionCategory? category,
-            decimal? amount, string description,
+            decimal? amount, string? description,
             TransactionKind? kind, TransactionStatus? status,
             DateTimeOffset? targetDate, DateTimeOffset? finishDate
         )
