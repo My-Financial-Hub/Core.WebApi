@@ -14,10 +14,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\transactions\FinancialHub.Transactions.WebApi\FinancialHub.Transactions.WebApi.csproj" />
     <ProjectReference Include="..\FinancialHub.Core.Application\FinancialHub.Core.Application.csproj" />
     <ProjectReference Include="..\FinancialHub.Core.Infra.Caching\FinancialHub.Core.Infra.Caching.csproj" />
     <ProjectReference Include="..\FinancialHub.Core.Infra.Data\FinancialHub.Core.Infra.Data.csproj" />

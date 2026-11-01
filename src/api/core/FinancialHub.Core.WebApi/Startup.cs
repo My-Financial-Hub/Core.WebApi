@@ -8,9 +8,9 @@ using FinancialHub.Core.Application.Extensions.Configurations;
 using FinancialHub.Core.Infra.Extensions;
 using FinancialHub.Core.Resources.Extensions;
 using FinancialHub.Core.Infra.Data.Extensions.Configurations;
-using FinancialHub.Core.Infra.Logs.Extensions.Configurations;
 using FinancialHub.Core.WebApi.Middlewares;
 using FinancialHub.Core.Infra.Caching.Extensions.Configurations;
+using FinancialHub.Transactions.WebApi;
 
 namespace FinancialHub.Core.WebApi
 {
@@ -35,6 +35,8 @@ namespace FinancialHub.Core.WebApi
                 .AddCoreInfra()
                 .AddCaching(Configuration)
                 .AddRepositories(Configuration);
+
+            services.AddTransactionsWebApi(Configuration);
 
             services
                 .AddMvc()
