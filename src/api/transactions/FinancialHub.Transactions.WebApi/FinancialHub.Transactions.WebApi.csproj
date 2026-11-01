@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\common\FinancialHub.CQRS\FinancialHub.CQRS.csproj" />
+    <ProjectReference Include="..\FinancialHub.Transactions.Application\FinancialHub.Transactions.Application.csproj" />
+    <ProjectReference Include="..\FinancialHub.Transactions.Infra.Database\FinancialHub.Transactions.Infra.Database.csproj" />
   </ItemGroup>
 
 </Project>

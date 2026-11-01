@@ -12,19 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["MyFinancialHub.Transactions.WebApi/MyFinancialHub.Transactions.WebApi.csproj", "MyFinancialHub.Transactions.WebApi/"]
-RUN dotnet restore "./MyFinancialHub.Transactions.WebApi/MyFinancialHub.Transactions.WebApi.csproj"
+COPY ["FinancialHub.Transactions.WebApi/FinancialHub.Transactions.WebApi.csproj", "FinancialHub.Transactions.WebApi/"]
+RUN dotnet restore "./FinancialHub.Transactions.WebApi/FinancialHub.Transactions.WebApi.csproj"
 COPY . .
-WORKDIR "/src/MyFinancialHub.Transactions.WebApi"
-RUN dotnet build "./MyFinancialHub.Transactions.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/FinancialHub.Transactions.WebApi"
+RUN dotnet build "./FinancialHub.Transactions.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./MyFinancialHub.Transactions.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./FinancialHub.Transactions.WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MyFinancialHub.Transactions.WebApi.dll"]
+ENTRYPOINT ["dotnet", "FinancialHub.Transactions.WebApi.dll"]

@@ -1,5 +1,5 @@
 
-namespace MyFinancialHub.Transactions.Infra.WebApi
+namespace FinancialHub.Transactions.Infra.WebApi
 {
     public class Program
     {
