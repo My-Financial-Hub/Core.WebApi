@@ -1,8 +1,12 @@
-﻿using FinancialHub.Transactions.Domain.Interfaces;
-using FinancialHub.Transactions.Infra.Database.Context;
-using FinancialHub.Transactions.Infra.Database.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
+using FinancialHub.Transactions.Domain.Interfaces;
+
+using FinancialHub.Transactions.Infra.Database.Context;
+using FinancialHub.Transactions.Infra.Database.Repositories;
+using FinancialHub.Transactions.Infra.Database.Mappers;
 
 namespace FinancialHub.Transactions.Infra.Database
 {
@@ -18,7 +22,9 @@ namespace FinancialHub.Transactions.Infra.Database
                     )
             );
 
-            services.AddRepositories();
+            services
+                .AddMappers()
+                .AddRepositories();
 
             return services;
         }

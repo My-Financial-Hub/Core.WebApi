@@ -6,9 +6,9 @@ namespace FinancialHub.Transactions.Infra.Database.Mappers
     {
         internal static IServiceCollection AddMappers(this IServiceCollection services)
         {
-            services.AddSingleton<TransactionCategoryMapper>();
-            services.AddSingleton<TransactionBalanceMapper>();
-            services.AddSingleton<TransactionMapper>();
+            services.AddScoped<TransactionCategoryMapper>();
+            services.AddScoped<TransactionBalanceMapper>();
+            services.AddScoped<TransactionMapper>();
             return services;
         }
     }

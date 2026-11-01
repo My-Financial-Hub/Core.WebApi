@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FinancialHub.Transactions.Infra.Data.Common.Entities;
+using FinancialHub.Transactions.Infra.Database.Entities;
 
 namespace FinancialHub.Transactions.Infra.Database.Mappings
 {

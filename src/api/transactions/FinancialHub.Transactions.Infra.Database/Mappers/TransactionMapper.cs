@@ -10,7 +10,7 @@ namespace FinancialHub.Transactions.Infra.Database.Mappers
         private readonly TransactionCategoryMapper categoryMapper;
         private readonly TransactionBalanceMapper balanceMapper;
 
-        internal TransactionMapper(
+        public TransactionMapper(
             TransactionCategoryMapper categoryMapper,
             TransactionBalanceMapper balanceMapper
         ) 

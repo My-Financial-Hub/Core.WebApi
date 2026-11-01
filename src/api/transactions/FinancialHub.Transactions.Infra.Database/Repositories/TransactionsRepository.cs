@@ -15,15 +15,22 @@ using FinancialHub.Transactions.Infra.Database.Mappers;
 
 namespace FinancialHub.Transactions.Infra.Database.Repositories
 {
-    internal sealed class TransactionsRepository(
-        TransactionsDbContext context,
-        TransactionMapper mapper,
-        ILogger<TransactionsRepository> logger
-    ) : ITransactionRepository
+    internal sealed class TransactionsRepository : ITransactionRepository
     {
-        private readonly TransactionsDbContext context = context;
-        private readonly TransactionMapper mapper = mapper;
-        private readonly ILogger<TransactionsRepository> logger = logger;
+        private readonly TransactionsDbContext context;
+        private readonly TransactionMapper mapper;
+        private readonly ILogger<TransactionsRepository> logger;
+
+        public TransactionsRepository(
+            TransactionsDbContext context,
+            TransactionMapper mapper,
+            ILogger<TransactionsRepository> logger
+        )
+        {
+            this.context = context;
+            this.mapper = mapper;
+            this.logger = logger;
+        }
 
         public async Task AddAsync(Transaction transaction, CancellationToken cancellationToken = default)
         {

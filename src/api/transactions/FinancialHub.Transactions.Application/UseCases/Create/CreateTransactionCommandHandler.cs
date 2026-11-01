@@ -1,14 +1,17 @@
-﻿using FinancialHub.CQRS.Handlers.Commands;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
+using FinancialHub.CQRS.Handlers.Commands;
 using FinancialHub.CQRS.Results;
+
 using FinancialHub.Transactions.Application.Errors;
-using FinancialHub.Transactions.Application.Validators;
+
 using FinancialHub.Transactions.Domain;
 using FinancialHub.Transactions.Domain.Data.Create;
 using FinancialHub.Transactions.Domain.Interfaces;
 using FinancialHub.Transactions.Domain.ValueObjects;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FinancialHub.Transactions.Application.UseCases.Create
 {
