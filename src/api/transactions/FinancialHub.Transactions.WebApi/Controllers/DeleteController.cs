@@ -5,7 +5,7 @@ using FinancialHub.Transactions.Application.UseCases.Delete;
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class DeleteController : BaseController
+    public sealed class DeleteController : BaseTransactionsController
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly ILogger<DeleteController> logger;

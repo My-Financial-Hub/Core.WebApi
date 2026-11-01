@@ -29,7 +29,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Get
                 statuses: query.Statuses?.Select(status => status.ToString())?.ToArray(),
                 kinds: query.Kinds?.Select(kind => kind.ToString())?.ToArray()
             );
-            var transactions = await this.repository.GetAsync(filters);
+            var transactions = await repository.GetAsync(filters);
 
             return new GetTransactionResult(transactions);
         }

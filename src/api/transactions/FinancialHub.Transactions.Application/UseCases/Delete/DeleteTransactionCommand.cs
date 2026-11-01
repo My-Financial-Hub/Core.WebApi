@@ -7,7 +7,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Delete
         public Guid TransactionId { get; }
         public DeleteTransactionCommand(Guid transactionId)
         {
-            this.TransactionId = transactionId;
+            TransactionId = transactionId;
         }
     }
 }

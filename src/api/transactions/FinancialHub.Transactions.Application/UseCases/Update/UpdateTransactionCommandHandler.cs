@@ -45,10 +45,10 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
             if (command.BalanceId.HasValue)
             {
                 var balanceId = command.BalanceId.Value;
-                balance = await this.balanceRepository.GetByIdAsync(balanceId);
+                balance = await balanceRepository.GetByIdAsync(balanceId);
                 if (balance == null)
                 {
-                    this.logger.LogWarning("Balance with ID {BalanceId} not found.", balanceId);
+                    logger.LogWarning("Balance with ID {BalanceId} not found.", balanceId);
                     return UpdateTransactionResult.BalanceNotFound(balanceId);
                 }
             }
@@ -57,10 +57,10 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
             if (command.CategoryId.HasValue)
             {
                 var categoryId = command.CategoryId.Value;
-                category = await this.categoryRepository.GetByIdAsync(categoryId);
+                category = await categoryRepository.GetByIdAsync(categoryId);
                 if (category == null)
                 {
-                    this.logger.LogWarning("Category with ID {CategoryId} not found.", categoryId);
+                    logger.LogWarning("Category with ID {CategoryId} not found.", categoryId);
                     return UpdateTransactionResult.CategoryNotFound(categoryId);
                 }
             }
@@ -76,7 +76,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
                 command.FinishDate
             );
 
-            await this.transactionRepository.UpdateAsync(transaction);
+            await transactionRepository.UpdateAsync(transaction);
 
             return new UpdateTransactionResult();
         }

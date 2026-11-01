@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FinancialHub.CQRS;
 using FinancialHub.CQRS.Results.Errors;
-using FinancialHub.Transactions.Application.UseCases.Update;
 using FinancialHub.Transactions.WebApi.Requests;
+using FinancialHub.Transactions.Application.UseCases.Update;
 
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class UpdateController : BaseController
+    public sealed class UpdateController : BaseTransactionsController
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly ILogger<UpdateController> logger;

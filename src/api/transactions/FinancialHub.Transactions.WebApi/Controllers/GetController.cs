@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FinancialHub.CQRS;
-using FinancialHub.Transactions.Application.UseCases.Get;
 using FinancialHub.Transactions.WebApi.Requests;
+using FinancialHub.Transactions.Application.UseCases.Get;
 
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class GetController : BaseController
+    public sealed class GetController : BaseTransactionsController
     {
         private readonly IQueryDispatcher queryDispatcher;
         private readonly ILogger<GetController> logger;

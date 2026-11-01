@@ -18,7 +18,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Get.Categories
 
         public async Task<GetTransactionCategoriesResult> Handle(GetTransactionCategoriesQuery query)
         {
-            var categories = await this.repository.GetAllAsync();
+            var categories = await repository.GetAllAsync();
 
             return new GetTransactionCategoriesResult(categories);
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-
 using FinancialHub.CQRS.Results;
 using FinancialHub.CQRS.Results.Errors;
 

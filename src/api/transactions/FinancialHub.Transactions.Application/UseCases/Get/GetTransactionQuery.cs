@@ -19,11 +19,11 @@ namespace FinancialHub.Transactions.Application.UseCases.Get
             TransactionKind[]? kinds = null
         )
         {
-            this.Balances = balances;
-            this.Categories = categories;
-            this.DateRange = dateRange;
-            this.Statuses = statuses;
-            this.Kinds = kinds;
+            Balances = balances;
+            Categories = categories;
+            DateRange = dateRange;
+            Statuses = statuses;
+            Kinds = kinds;
         }
     }
 }

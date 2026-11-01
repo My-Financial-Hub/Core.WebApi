@@ -37,7 +37,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Create
 
         public async Task<ServiceResult> Handle(CreateTransactionCommand command)
         {
-            using var scope = this.logger.BeginScope(
+            using var scope = logger.BeginScope(
                 new Dictionary<string, object>
                 {
                     ["Context"] = nameof(CreateTransactionCommandHandler),
@@ -45,23 +45,23 @@ namespace FinancialHub.Transactions.Application.UseCases.Create
                 }
             );
 
-            this.logger.LogDebug("Searching for balance {BalanceId}.", command.BalanceId);
-            var balance = await this.balanceRepository.GetByIdAsync(command.BalanceId);
+            logger.LogDebug("Searching for balance {BalanceId}.", command.BalanceId);
+            var balance = await balanceRepository.GetByIdAsync(command.BalanceId);
             if (balance is null)
             {
-                this.logger.LogWarning("Transaction creation failed because the balance was not found.");
+                logger.LogWarning("Transaction creation failed because the balance was not found.");
                 return new BalanceNotFoundResultError(command.BalanceId);
             }
 
-            this.logger.LogDebug("Searching for category {CategoryId}.", command.CategoryId);
-            var category = await this.categoryRepository.GetByIdAsync(command.CategoryId);
+            logger.LogDebug("Searching for category {CategoryId}.", command.CategoryId);
+            var category = await categoryRepository.GetByIdAsync(command.CategoryId);
             if (category is null)
             {
-                this.logger.LogWarning("Transaction creation failed because the category was not found.");
+                logger.LogWarning("Transaction creation failed because the category was not found.");
                 return new CategoryNotFoundResultError(command.CategoryId);
             }
 
-            this.logger.LogInformation("Creating transaction");
+            logger.LogInformation("Creating transaction");
             var transaction = Transaction.Create(
                 new TransactionCreateData()
                 {
@@ -85,9 +85,9 @@ namespace FinancialHub.Transactions.Application.UseCases.Create
                 }
             );
 
-            await this.repository.AddAsync(transaction);
+            await repository.AddAsync(transaction);
 
-            this.logger.LogInformation("Transaction created successfully.");
+            logger.LogInformation("Transaction created successfully.");
 
             return ServiceResult.Success();
         }

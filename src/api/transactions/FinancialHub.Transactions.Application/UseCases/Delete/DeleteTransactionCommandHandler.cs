@@ -19,18 +19,18 @@ namespace FinancialHub.Transactions.Application.UseCases.Delete
 
         public async Task Handle(DeleteTransactionCommand command)
         {
-            this.logger.LogInformation("Handling DeleteTransactionCommand for Transaction ID {TransactionId}.", command.TransactionId);
+            logger.LogInformation("Handling DeleteTransactionCommand for Transaction ID {TransactionId}.", command.TransactionId);
 
-            var transaction = await this.transactionRepository.GetByIdAsync(command.TransactionId);
+            var transaction = await transactionRepository.GetByIdAsync(command.TransactionId);
 
             if (transaction == null)
             {
-                this.logger.LogWarning("Transaction with ID {TransactionId} not found for deletion.", command.TransactionId);
+                logger.LogWarning("Transaction with ID {TransactionId} not found for deletion.", command.TransactionId);
             }
             else
             {
-                await this.transactionRepository.DeleteAsync(command.TransactionId);
-                this.logger.LogInformation("Transaction with ID {TransactionId} deleted successfully.", command.TransactionId);
+                await transactionRepository.DeleteAsync(command.TransactionId);
+                logger.LogInformation("Transaction with ID {TransactionId} deleted successfully.", command.TransactionId);
             }
         }
     }

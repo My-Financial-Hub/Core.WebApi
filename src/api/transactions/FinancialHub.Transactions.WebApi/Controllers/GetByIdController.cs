@@ -5,7 +5,7 @@ using FinancialHub.Transactions.Application.UseCases.Get.ById;
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class GetByIdController : BaseController
+    public sealed class GetByIdController : BaseTransactionsController
     {
         private readonly IQueryDispatcher queryDispatcher;
         private readonly ILogger<GetByIdController> logger;

@@ -8,7 +8,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Get.ById
 
         public GetTransactionByIdQuery(Guid transactionId)
         {
-            this.TransactionId = transactionId;
+            TransactionId = transactionId;
         }
     }
 }

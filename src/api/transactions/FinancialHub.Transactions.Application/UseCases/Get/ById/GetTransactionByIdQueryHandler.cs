@@ -22,22 +22,22 @@ namespace FinancialHub.Transactions.Application.UseCases.Get.ById
 
         public async Task<GetTransactionByIdResult> Handle(GetTransactionByIdQuery query)
         {
-            using var scope = this.logger.BeginScope(
+            using var scope = logger.BeginScope(
                 new Dictionary<string, object>
                 {
                     ["Context"] = nameof(GetTransactionByIdQueryHandler),
                     ["Query"] = query,
                 }
             );
-            this.logger.LogInformation("Searching transaction with ID {TransactionId}", query.TransactionId);
+            logger.LogInformation("Searching transaction with ID {TransactionId}", query.TransactionId);
             var transaction = await transactionRepository.GetByIdAsync(query.TransactionId);
             if (transaction == null)
             {
-                this.logger.LogWarning("Transaction with ID {TransactionId} not found.", query.TransactionId);
+                logger.LogWarning("Transaction with ID {TransactionId} not found.", query.TransactionId);
                 return GetTransactionByIdResult.NotFound(query.TransactionId);
             }
 
-            this.logger.LogInformation("Transaction with ID {TransactionId} retrieved successfully.", query.TransactionId);
+            logger.LogInformation("Transaction with ID {TransactionId} retrieved successfully.", query.TransactionId);
             return new GetTransactionByIdResult(
                 new GetTransactionByIdDto
                 {

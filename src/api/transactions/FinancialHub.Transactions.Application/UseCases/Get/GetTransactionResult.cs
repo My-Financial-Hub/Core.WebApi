@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-
 using FinancialHub.CQRS.Results;
 using FinancialHub.CQRS.Results.Errors;
-
 using FinancialHub.Transactions.Domain;
 
 namespace FinancialHub.Transactions.Application.UseCases.Get

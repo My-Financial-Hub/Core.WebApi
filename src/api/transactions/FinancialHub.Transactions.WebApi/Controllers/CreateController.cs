@@ -10,7 +10,7 @@ using FinancialHub.Transactions.Application.UseCases.Create;
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class CreateController : BaseController
+    public sealed class CreateController : BaseTransactionsController
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly ILogger<CreateController> logger;
