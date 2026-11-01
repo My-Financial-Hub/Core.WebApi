@@ -7,13 +7,19 @@ using FinancialHub.Transactions.WebApi.Requests;
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class UpdateController(ICommandDispatcher commandDispatcher, ILogger<UpdateController> logger) : BaseController
+    public sealed class UpdateController : BaseController
     {
-        private readonly ICommandDispatcher commandDispatcher = commandDispatcher;
-        private readonly ILogger<UpdateController> logger = logger;
+        private readonly ICommandDispatcher commandDispatcher;
+        private readonly ILogger<UpdateController> logger;
+
+        public UpdateController(ICommandDispatcher commandDispatcher, ILogger<UpdateController> logger)
+        {
+            this.commandDispatcher = commandDispatcher;
+            this.logger = logger;
+        }
 
         [HttpPatch("{id:guid}")]
-        [EndpointSummary("Updates a transaction")]
+        //[EndpointSummary("Updates a transaction")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ServiceError), 400)]
         [ProducesResponseType(404)]

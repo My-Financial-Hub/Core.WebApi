@@ -6,7 +6,7 @@ namespace FinancialHub.Transactions.WebApi
 {
     public static class IServiceCollectionExtensions
     {
-        public static IServiceCollection AddTransactionWebApi(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddTransactionsWebApi(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers()
                 .AddJsonOptions(option =>

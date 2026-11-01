@@ -10,13 +10,18 @@ using FinancialHub.Transactions.Application.UseCases.Create;
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class CreateController(ICommandDispatcher commandDispatcher, ILogger<CreateController> logger) : BaseController
+    public sealed class CreateController : BaseController
     {
-        private readonly ICommandDispatcher commandDispatcher = commandDispatcher;
-        private readonly ILogger<CreateController> logger = logger;
+        private readonly ICommandDispatcher commandDispatcher;
+        private readonly ILogger<CreateController> logger;
+
+        public CreateController(ICommandDispatcher commandDispatcher, ILogger<CreateController> logger)
+        {
+            this.commandDispatcher = commandDispatcher;
+            this.logger = logger;
+        }
 
         [HttpPost]
-        [EndpointSummary("Creates a transaction")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ServiceError), 404)]
         public async Task<IActionResult> Create([FromBody] CreateTransactionRequestBody transaction)

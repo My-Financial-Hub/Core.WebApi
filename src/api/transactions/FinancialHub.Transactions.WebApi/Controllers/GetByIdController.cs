@@ -5,13 +5,19 @@ using FinancialHub.Transactions.Application.UseCases.Get.ById;
 namespace FinancialHub.Transactions.WebApi.Controllers
 {
     [Tags("Transactions")]
-    public sealed class GetByIdController(IQueryDispatcher queryDispatcher, ILogger<GetByIdController> logger) : BaseController
+    public sealed class GetByIdController : BaseController
     {
-        private readonly IQueryDispatcher queryDispatcher = queryDispatcher;
-        private readonly ILogger<GetByIdController> logger = logger;
+        private readonly IQueryDispatcher queryDispatcher;
+        private readonly ILogger<GetByIdController> logger;
+
+        public GetByIdController(IQueryDispatcher queryDispatcher, ILogger<GetByIdController> logger)
+        {
+            this.queryDispatcher = queryDispatcher;
+            this.logger = logger;
+        }
 
         [HttpGet("{id:guid}")]
-        [EndpointSummary("Gets a transaction by its ID")]
+        //[EndpointSummary("Gets a transaction by its ID")]
         [ProducesResponseType(typeof(GetTransactionByIdResult), 200)]
         [ProducesResponseType(typeof(GetTransactionByIdResult), 404)]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
