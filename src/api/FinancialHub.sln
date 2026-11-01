@@ -78,8 +78,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialHub.Transactions.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialHub.Transactions.Infra.Database", "transactions\FinancialHub.Transactions.Infra.Database\FinancialHub.Transactions.Infra.Database.csproj", "{C25C127B-4076-5D50-708D-83CE588F04F1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{416B8AA5-9229-4E73-8B98-02FFF61EA7B9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{F68417F8-0EC4-4920-AF7D-1E78ADF9614E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialHub.Transactions.Domain", "transactions\FinancialHub.Transactions.Domain\FinancialHub.Transactions.Domain.csproj", "{E2F21392-F63B-7DBE-5F13-E2BD232F001F}"
