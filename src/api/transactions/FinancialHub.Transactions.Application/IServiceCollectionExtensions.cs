@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MyFinancialHub.Transactions.Application.UseCases;
+
+using FinancialHub.CQRS;
+
+using FinancialHub.Transactions.Application.UseCases;
 
 namespace FinancialHub.Transactions.Application
 {
@@ -7,7 +10,9 @@ namespace FinancialHub.Transactions.Application
     {
         public static IServiceCollection AddTransactionsApplication(this IServiceCollection services)
         {
-            return services.AddUseCases();
+            return services
+                .AddCQRS()
+                .AddUseCases();
         }
     }
 }
