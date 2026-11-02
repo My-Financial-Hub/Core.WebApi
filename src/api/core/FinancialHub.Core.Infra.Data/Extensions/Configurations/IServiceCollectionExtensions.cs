@@ -17,8 +17,6 @@ namespace FinancialHub.Core.Infra.Data.Extensions.Configurations
                     )
             );
             services.AddScoped<IAccountsRepository, AccountsRepository>();
-            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
-            services.AddScoped<ITransactionsRepository, TransactionsRepository>();
             services.AddScoped<IBalancesRepository, BalancesRepository>();
 
             return services;
