@@ -1,8 +1,9 @@
-﻿using FinancialHub.Transactions.Domain.Enums;
-
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+
+using FinancialHub.Transactions.Domain.Enums;
 
 namespace FinancialHub.Transactions.WebApi.Requests
 {

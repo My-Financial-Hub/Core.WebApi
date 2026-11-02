@@ -1,22 +1,25 @@
-﻿using FinancialHub.Transactions.Domain.Enums;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+
+using Newtonsoft.Json;
+
+using FinancialHub.Transactions.Domain.Enums;
 
 namespace FinancialHub.Transactions.WebApi.Requests
 {
     public sealed class CreateTransactionRequestBody
     {
-        //[JsonRequired]
-        [Required]
+        [JsonRequired]
         [JsonPropertyName("balance_id")]
         public Guid BalanceId { get; set; }
 
-        //[JsonRequired]
+        [JsonRequired]
         [JsonPropertyName("category_id")]
         public Guid CategoryId { get; set; }
 
-        //[JsonRequired]
+        [JsonRequired]
         [JsonPropertyName("amount")]
         [Range(0.01, double.MaxValue)]
         public decimal Amount { get; set; }
@@ -26,13 +29,13 @@ namespace FinancialHub.Transactions.WebApi.Requests
         [Description("A brief description of the transaction.")]
         public string? Description { get; set; }
 
-        //[JsonRequired]
+        [JsonRequired]
         [JsonPropertyName("status")]
         [EnumDataType(typeof(TransactionStatus))]
         [Description("The lifecycle status of the transaction.")]
         public TransactionStatus Status { get; set; }
 
-        //[JsonRequired]
+        [JsonRequired]
         [JsonPropertyName("kind")]
         [EnumDataType(typeof(TransactionKind))]
         [Description("The kind of the transaction, indicating whether it is an Earn or an expense.")]

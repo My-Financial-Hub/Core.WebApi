@@ -1,4 +1,6 @@
-﻿using FinancialHub.Transactions.Domain.Enums;
+﻿using System;
+
+using FinancialHub.Transactions.Domain.Enums;
 
 namespace FinancialHub.Transactions.WebApi.Requests
 {
