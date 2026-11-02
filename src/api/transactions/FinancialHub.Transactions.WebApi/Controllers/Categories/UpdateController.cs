@@ -9,15 +9,13 @@ using Microsoft.Extensions.Logging;
 using FinancialHub.CQRS;
 using FinancialHub.CQRS.Results.Errors;
 
-using FinancialHub.Transactions.WebApi.Requests;
-
 using FinancialHub.Transactions.Application.UseCases.Categories.Update;
 using FinancialHub.Transactions.WebApi.Requests.Categories;
 
 namespace FinancialHub.Transactions.WebApi.Controllers.Categories
 {
     [Tags("Categories")]
-    public sealed class UpdateController : BaseTransactionsController
+    public sealed class UpdateController : BaseCategoriesController
     {
         private readonly ICommandDispatcher commandDispatcher;
         private readonly ILogger<UpdateController> logger;
