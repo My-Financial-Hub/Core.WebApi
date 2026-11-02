@@ -1,6 +1,12 @@
-﻿using FinancialHub.CQRS;
-using FinancialHub.Transactions.Application.UseCases.Get.Categories;
+﻿using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+
+using Microsoft.Extensions.Logging;
+
+using FinancialHub.CQRS;
+using FinancialHub.Transactions.Application.UseCases.Categories.Get;
 
 namespace FinancialHub.Transactions.WebApi.Controllers.Categories
 {
@@ -9,6 +15,7 @@ namespace FinancialHub.Transactions.WebApi.Controllers.Categories
     {
         private readonly IQueryDispatcher queryDispatcher;
         private readonly ILogger<GetAllController> logger;
+
         public GetAllController(IQueryDispatcher queryDispatcher, ILogger<GetAllController> logger)
         {
             this.queryDispatcher = queryDispatcher;

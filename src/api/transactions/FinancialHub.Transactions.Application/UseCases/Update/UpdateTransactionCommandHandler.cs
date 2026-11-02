@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 
 using FinancialHub.CQRS.Handlers.Commands;
 
-using FinancialHub.Transactions.Domain;
 using FinancialHub.Transactions.Domain.Entities;
 using FinancialHub.Transactions.Domain.Interfaces;
 
@@ -34,10 +33,10 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
 
         public async Task<UpdateTransactionResult> Handle(UpdateTransactionCommand command)
         {
-            var transaction = await transactionRepository.GetByIdAsync(command.Id);
+            var transaction = await this.transactionRepository.GetByIdAsync(command.Id);
             if (transaction == null)
             {
-                logger.LogWarning("Transaction with ID {TransactionId} not found.", command.Id);
+                this.logger.LogWarning("Transaction with ID {TransactionId} not found.", command.Id);
                 return UpdateTransactionResult.TransactionNotFound(command.Id);
             }
 
@@ -45,10 +44,10 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
             if (command.BalanceId.HasValue)
             {
                 var balanceId = command.BalanceId.Value;
-                balance = await balanceRepository.GetByIdAsync(balanceId);
+                balance = await this.balanceRepository.GetByIdAsync(balanceId);
                 if (balance == null)
                 {
-                    logger.LogWarning("Balance with ID {BalanceId} not found.", balanceId);
+                    this.logger.LogWarning("Balance with ID {BalanceId} not found.", balanceId);
                     return UpdateTransactionResult.BalanceNotFound(balanceId);
                 }
             }
@@ -57,10 +56,10 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
             if (command.CategoryId.HasValue)
             {
                 var categoryId = command.CategoryId.Value;
-                category = await categoryRepository.GetByIdAsync(categoryId);
+                category = await this.categoryRepository.GetByIdAsync(categoryId);
                 if (category == null)
                 {
-                    logger.LogWarning("Category with ID {CategoryId} not found.", categoryId);
+                    this.logger.LogWarning("Category with ID {CategoryId} not found.", categoryId);
                     return UpdateTransactionResult.CategoryNotFound(categoryId);
                 }
             }
@@ -76,7 +75,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Update
                 command.FinishDate
             );
 
-            await transactionRepository.UpdateAsync(transaction);
+            await this.transactionRepository.UpdateAsync(transaction);
 
             return new UpdateTransactionResult();
         }

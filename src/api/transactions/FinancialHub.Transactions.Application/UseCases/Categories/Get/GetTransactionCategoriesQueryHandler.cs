@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using FinancialHub.CQRS.Handlers.Queries;
 using FinancialHub.Transactions.Domain.Interfaces;
 
-namespace FinancialHub.Transactions.Application.UseCases.Get.Categories
+namespace FinancialHub.Transactions.Application.UseCases.Categories.Get
 {
     internal class GetTransactionCategoriesQueryHandler : IQueryHandler<GetTransactionCategoriesQuery, GetTransactionCategoriesResult>
     {

@@ -2,7 +2,7 @@
 using FinancialHub.CQRS.Results;
 using FinancialHub.Transactions.Domain.Entities;
 
-namespace FinancialHub.Transactions.Application.UseCases.Get.Categories
+namespace FinancialHub.Transactions.Application.UseCases.Categories.Get
 {
     public sealed class GetTransactionCategoriesResult : ServiceResult<IEnumerable<TransactionCategory>>
     {

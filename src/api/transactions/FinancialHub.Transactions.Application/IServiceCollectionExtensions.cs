@@ -3,6 +3,7 @@
 using FinancialHub.CQRS;
 
 using FinancialHub.Transactions.Application.UseCases;
+using FinancialHub.Transactions.Application.UseCases.Categories;
 
 namespace FinancialHub.Transactions.Application
 {
@@ -12,7 +13,8 @@ namespace FinancialHub.Transactions.Application
         {
             return services
                 .AddCQRS()
-                .AddUseCases();
+                .AddTransactionsUseCases()
+                .AddCategoriesUseCases();
         }
     }
 }
