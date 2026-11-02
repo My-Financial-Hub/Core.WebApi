@@ -32,6 +32,60 @@ namespace FinancialHub.Transactions.Infra.Database.Repositories
         }
 
         /// <inheritdoc />
+        /// <exception cref="ArgumentNullException">Thrown when the category is null.</exception>
+        public async Task<TransactionCategory> AddAsync(TransactionCategory category, CancellationToken cancellationToken = default)
+        {
+            ArgumentNullException.ThrowIfNull(category);
+
+            this.logger.LogTrace("Adding category to the database.");
+            var entity = this.mapper.ToEntity(category);
+
+            var result = await this.context.Categories.AddAsync(entity, cancellationToken);
+
+            await this.context.SaveChangesAsync(cancellationToken);
+            this.logger.LogTrace("Category added successfully.");
+
+            return this.mapper.FromEntity(result.Entity);
+        }
+
+        /// <inheritdoc />
+        /// <exception cref="ArgumentNullException">Thrown when the category is null.</exception>
+        public async Task<TransactionCategory> UpdateAsync(TransactionCategory category, CancellationToken cancellationToken = default)
+        {
+            ArgumentNullException.ThrowIfNull(category);
+
+            this.logger.LogTrace("Updating category with id {Id}.", category.Id);
+            var entity = this.mapper.ToEntity(category);
+
+            var result = this.context.Update(entity);
+
+            await this.context.SaveChangesAsync(cancellationToken);
+            this.logger.LogTrace("Category with id {Id} updated successfully.", category.Id);
+
+            return this.mapper.FromEntity(result.Entity);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            this.logger.LogTrace("Deleting category with id {Id}.", id);
+            var entity = await this.context.Categories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+
+            if (entity == null)
+            {
+                this.logger.LogTrace("Category with id {Id} not found.", id);
+                return;
+            }
+
+            context.Categories.Remove(entity);
+            await this.context.SaveChangesAsync(cancellationToken);
+
+            this.logger.LogTrace("Category with id {Id} deleted successfully.", id);
+        }
+
+        /// <inheritdoc />
         public async Task<IEnumerable<TransactionCategory>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             this.logger.LogTrace("Fetching all categories.");

@@ -26,6 +26,12 @@ namespace FinancialHub.Transactions.Domain.Entities
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TransactionCategory"/> class.
+        /// </summary>
+        /// <param name="name">The category display name.</param>
+        public TransactionCategory(string name) : this(Guid.NewGuid(), name) { }
+
+        /// <summary>
         /// Gets the category identifier.
         /// </summary>
         public Guid Id { get; }

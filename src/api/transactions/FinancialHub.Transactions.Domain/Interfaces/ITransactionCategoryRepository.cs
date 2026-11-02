@@ -11,5 +11,8 @@ namespace FinancialHub.Transactions.Domain.Interfaces
     {
         Task<IEnumerable<TransactionCategory>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<TransactionCategory> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<TransactionCategory> AddAsync(TransactionCategory category, CancellationToken cancellationToken = default);
+        Task<TransactionCategory> UpdateAsync(TransactionCategory category, CancellationToken cancellationToken = default);
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

@@ -9,7 +9,7 @@ namespace FinancialHub.Transactions.Infra.Database.Context
     {
         internal DbSet<TransactionEntity> Transactions => this.Set<TransactionEntity>();
 
-        internal IQueryable<TransactionCategoryEntity> Categories => this.Set<TransactionCategoryEntity>();
+        internal DbSet<TransactionCategoryEntity> Categories => this.Set<TransactionCategoryEntity>();
 
         internal IQueryable<TransactionBalanceEntity> Balances => this.Set<TransactionBalanceEntity>();
 
