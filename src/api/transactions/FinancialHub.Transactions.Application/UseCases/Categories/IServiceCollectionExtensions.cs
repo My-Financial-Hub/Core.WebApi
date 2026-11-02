@@ -5,6 +5,7 @@ using FinancialHub.CQRS.Handlers.Queries;
 
 using FinancialHub.Transactions.Application.UseCases.Categories.Get;
 using FinancialHub.Transactions.Application.UseCases.Categories.Create;
+using FinancialHub.Transactions.Application.UseCases.Categories.Delete;
 
 namespace FinancialHub.Transactions.Application.UseCases.Categories
 {
@@ -27,6 +28,7 @@ namespace FinancialHub.Transactions.Application.UseCases.Categories
         private static IServiceCollection AddCategoriesCommandUseCases(this IServiceCollection services)
         {
             services.AddScoped<ICommandHandler<CreateCategoryCommand, CreateCategoryResult>, CreateCategoryCommandHandler>();
+            services.AddScoped<ICommandHandler<DeleteCategoryCommand>, DeleteCategoryCommandHandler>();
             
             return services;
         }
