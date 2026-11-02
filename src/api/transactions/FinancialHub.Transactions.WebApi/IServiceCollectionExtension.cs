@@ -1,6 +1,11 @@
 ﻿using System.Text.Json.Serialization;
-using FinancialHub.Transactions.Infra.Database;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
 using FinancialHub.Transactions.Application;
+
+using FinancialHub.Transactions.Infra.Database;
 
 namespace FinancialHub.Transactions.WebApi
 {
@@ -21,7 +26,14 @@ namespace FinancialHub.Transactions.WebApi
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("Transactions API v1", new() { Title = "My Financial Hub - Transactions API", Version = "v1" });
+                options.SwaggerDoc(
+                    "Transactions API v1", 
+                    new() { 
+                        Title = "My Financial Hub - Transactions API", 
+                        Description = "API for managing financial transactions, including creation, retrieval, updating, and deletion of transactions, as well as handling transaction categories.",
+                        Version = "v1"
+                    }
+                );
             });
 
             return services;

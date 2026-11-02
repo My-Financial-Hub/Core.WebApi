@@ -1,7 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+
+using Microsoft.Extensions.Logging;
+
 using FinancialHub.CQRS;
 using FinancialHub.CQRS.Results.Errors;
+
 using FinancialHub.Transactions.WebApi.Requests;
+
 using FinancialHub.Transactions.Application.UseCases.Update;
 
 namespace FinancialHub.Transactions.WebApi.Controllers
