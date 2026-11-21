@@ -31,7 +31,6 @@ namespace FinancialHub.Core.Infra.Caching.Extensions.Configurations
         {
             services.AddScoped<IAccountsCache, AccountsCache>();
             services.AddScoped<IBalancesCache, BalancesCache>();
-            services.AddScoped<ICategoriesCache, CategoriesCache>();
             return services;
         }
 
