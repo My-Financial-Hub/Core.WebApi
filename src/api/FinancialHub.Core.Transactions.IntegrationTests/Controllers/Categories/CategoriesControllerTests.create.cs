@@ -2,7 +2,7 @@
 using FinancialHub.Core.Domain.Tests.Builders.DTOS.Accounts;
 using FinancialHub.Core.Domain.Tests.Builders.DTOS.Categories;
 
-namespace FinancialHub.Core.IntegrationTests.Controllers.Categories
+namespace FinancialHub.Core.Transactions.IntegrationTests.Controllers.Categories
 {
     public partial class CategoriesControllerTests
     {
